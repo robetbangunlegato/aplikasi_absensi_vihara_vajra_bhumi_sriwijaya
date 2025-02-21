@@ -13,7 +13,7 @@
                             <div class="input-group input-group-outline">
                                 <label class="form-label" for="nama">Nama</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                    id="nama" name="name" value="{{ old('name') }}">
+                                    id="nama" name="name" value="{{ old('name') }}" required autofocus>
                             </div>
                             @error('name')
                                 <small class="text-danger">{{ $message }}</small>
@@ -26,7 +26,7 @@
                             <div class="input-group input-group-outline">
                                 <label class="form-label" for="email">Email</label>
                                 <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                    id="email" name="email" value="{{ old('email') }}">
+                                    id="email" name="email" value="{{ old('email') }}" required>
                             </div>
                             @error('email')
                                 <small class="text-danger">{{ $message }}</small>
@@ -39,7 +39,7 @@
                             <div class="input-group input-group-outline">
                                 <label class="form-label" for="phone">Phone</label>
                                 <input type="number" class="form-control @error('phone') is-invalid @enderror"
-                                    id="phone" name="phone" value="{{ old('phone') }}" min="0">
+                                    id="phone" name="phone" value="{{ old('phone') }}" min="0" required>
                             </div>
                             @error('email')
                                 <small class="text-danger">{{ $message }}</small>
@@ -52,7 +52,7 @@
                             <div class="input-group input-group-outline">
                                 <label class="form-label" for="password">Password</label>
                                 <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                    id="password" name="password">
+                                    id="password" name="password" required>
                             </div>
                             @error('password')
                                 <small class="text-danger">{{ $message }}</small>
@@ -61,9 +61,8 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-12">
-                            <select name="jabatan_organisasi_id" id="jabatan_organisasi_id"
-                                class="form-select px-3 @error('jabatan_organisasi_id') is-invalid @enderror">
+                        {{-- <select name="jabatan_organisasi_id" id="jabatan_organisasi_id"
+                                class="form-select px-3 @error('jabatan_organisasi_id') is-invalid @enderror" required>
                                 <option value="">Pilih Jabatan Organisasi</option>
                                 @foreach ($jabatan_organisasis as $jabatan_organisasi)
                                     <option value="{{ $jabatan_organisasi->id }}"
@@ -71,57 +70,74 @@
                                         {{ $jabatan_organisasi->nama_jabatan }}
                                     </option>
                                 @endforeach
+                            </select> --}}
+                        <div class="input-group input-group-static">
+                            <label for="jabatan_organisasi_id" class="ms-0">Jabatan organisasi</label>
+                            <select class="form-control @error('jabatan_organisasi_id') is-invalid @enderror"
+                                name="jabatan_organisasi_id" id="jabatan_organisasi_id" required>
+
+                                <!-- Tambahkan option kosong -->
+                                <option value="" selected disabled>-- Pilih Jabatan --</option>
+
+                                @foreach ($jabatan_organisasis as $jabatan_organisasi)
+                                    <option value="{{ $jabatan_organisasi->id }}"
+                                        {{ old('jabatan_organisasi_id') == $jabatan_organisasi->id ? 'selected' : '' }}>
+                                        {{ $jabatan_organisasi->nama_jabatan }}
+                                    </option>
+                                @endforeach
                             </select>
+
                             @error('jabatan_organisasi_id')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
+
                     </div>
 
                     <div class="row my-4">
-                        <div class="col-12">
-                            <select name="status" id="status"
-                                class="form-select px-3 @error('status') is-invalid @enderror">
-                                <option value="">Pilih Hak Akses Aplikasi</option>
+                        <div class="input-group input-group-static">
+                            <label for="role" class="ms-0">Hak Akses Aplikasi</label>
+                            <select name="role" id="role"
+                                class="form-control px-3 @error('role') is-invalid @enderror" required>
+                                <!-- Tambahkan option kosong -->
+                                <option value="" selected disabled>-- Pilih hak akses aplikasi --</option>
                                 @foreach ($roles as $role)
                                     <option value="{{ $role->id }}">
                                         {{ $role->name }}
                                     </option>
                                 @endforeach
-
                             </select>
-                            @error('status')
+                            @error('role')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                     </div>
 
-                    <div class="row my-4">
+                    {{-- <div class="row my-4">
                         <div class="col-12">
-                            <div class="input-group input-group-outline is-filled">
-                                <label class="form-label" for="tanggalLahir">Tanggal lahir</label>
+                            <div class="input-group input-group-static">
+                                <label for="tanggalLahir">Tanggal lahir</label>
                                 <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror"
-                                    id="tanggalLahir" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}">
+                                    id="tanggalLahir" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required>
                             </div>
                             @error('tanggal_lahir')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
 
-                    <div class="row my-4">
+                    {{-- <div class="row my-4">
                         <div class="col-12">
                             <div class="input-group input-group-outline">
                                 <label class="form-label" for="tempatLahir">Tempat lahir</label>
                                 <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror"
-                                    id="tempatLahir" name="tempat_lahir" value="{{ old('tempat_lahir') }}">
+                                    id="tempatLahir" name="tempat_lahir" value="{{ old('tempat_lahir') }}" required>
                             </div>
                             @error('tempat_lahir')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                    </div>
-
+                    </div> --}}
                     <div class="row my-4">
                         <div class="col-12">
                             <button class="btn btn-primary w-100" type="submit">Simpan</button>

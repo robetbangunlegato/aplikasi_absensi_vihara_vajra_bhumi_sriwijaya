@@ -60,16 +60,17 @@ class KelolaPenggunaController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required',
-            'status' => 'required',
+            'role' => 'required',
             'jabatan_organisasi_id' => 'required',
             'tanggal_lahir' => 'required',
             'tempat_lahir' => 'required'
         ]);
+        dd($validasi);
 
         $users = new User();
         $users->name = $validasi['name'];
         $users->email = $validasi['email'];
-        $users->role = $validasi['status'];
+        $users->role = $validasi['role'];
         $users->password = Hash::make($validasi['password']);
         $users->save();
         $data_pribadis = new DataPribadi();
